@@ -1,0 +1,43 @@
+{
+  "name": "Golden Crumb Bakery",
+  "productName": "Ideas Oven",
+  "website": "https://www.example.com",
+  "logo": "logo.svg",
+  "logoHeight": 36,
+  "colors": {
+    "primary": "#f2a65a",
+    "action": "#8c4a1c",
+    "accent": "#5b8e3e",
+    "text": "#3d2b1f"
+  },
+  "fonts": {
+    "body": "Source Sans 3",
+    "heading": "Playfair Display",
+    "headingItalic": true,
+    "googleFonts": true,
+    "weights": [
+      400,
+      600,
+      700
+    ]
+  },
+  "text": {
+    "heroTitle": "What Should We Bake Next?",
+    "introText": "Tell us the loaf, pastry or service you'd love to see at {name}, or back an idea someone else had. The most-wanted ideas make it to the oven first.",
+    "suggestPlaceholder": "I'd love {name} to bake…",
+    "detailsPlaceholder": "Tell us more: flavours, dietary needs, when you'd want it",
+    "listHeading": "Ideas from Our Regulars",
+    "adminHeading": "What Customers Are Craving",
+    "emptyList": "The oven is empty. Be the first to suggest something!",
+    "firstToSuggest": "Nobody has asked for this yet. Tell a friend; every vote moves it closer to the oven.",
+    "loginNote": "For the {name} team only. Enter the admin password to continue."
+  },
+  "categories": [
+    "Breads",
+    "Pastries",
+    "Cakes & Celebrations",
+    "Drinks",
+    "Ordering & Delivery",
+    "Other"
+  ]
+}

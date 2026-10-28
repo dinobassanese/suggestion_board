@@ -1,0 +1,138 @@
+<!doctype html>
+<!--
+  index.html — the CUSTOMER-FACING feature board.
+  This file is the page's STRUCTURE (headings, form, list). The look comes
+  from styles.css and the behavior (loading ideas, voting...) from app.js.
+  Placeholders written in double curly braces are filled in by the server from
+  branding/brand.json (your name, logo, wording, colors, fonts) before the
+  page is sent, so you never need to edit this file to rebrand.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  {{head}}
+</head>
+<body>
+
+  <!-- Header: your logo, top-left -->
+  <header class="topbar">
+    <div class="wrap">
+      <a class="logo" {{logoLink}}>
+        {{logo}}
+        <span class="product">{{productName}}</span>
+      </a>
+      <button class="btn-link small hidden" id="whoami" type="button"></button>
+    </div>
+  </header>
+
+  <!-- Colored hero band with the headline, then the message band -->
+  <section class="hero-band">
+    <div class="wrap">
+      <h1>{{heroTitle}}</h1>
+    </div>
+  </section>
+  <div class="message-band">
+    <div class="wrap">
+      <p>{{introText}}</p>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- ===== Suggestion box ===== -->
+    <section class="suggest-section" aria-labelledby="suggest-h">
+      <h2 id="suggest-h">Suggest a Feature</h2>
+      <form class="suggest" id="suggest-form" novalidate>
+        <input class="title-input" id="title" name="title" type="text" maxlength="120"
+               placeholder="{{suggestPlaceholder}}" autocomplete="off" aria-label="Your idea" required>
+
+        <!-- Shown while typing if similar ideas already exist -->
+        <div class="similar-hint hidden" id="similar-hint" aria-live="polite">
+          <h3 id="similar-heading">Already Suggested? Vote for It Instead</h3>
+          <ul id="similar-list"></ul>
+        </div>
+
+        <!-- The rest of the form appears once someone starts typing -->
+        <div class="more hidden" id="more">
+          <div class="field">
+            <label for="description">Details <span class="muted">(optional)</span></label>
+            <textarea id="description" name="description" maxlength="2000"
+                      placeholder="{{detailsPlaceholder}}"></textarea>
+          </div>
+          <div class="field">
+            <label for="category">Category</label>
+            <select id="category" name="category_id"><option value="">Choose one</option></select>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" maxlength="60" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" maxlength="120" autocomplete="email" required>
+            </div>
+          </div>
+          <!-- Bot trap: hidden from people, but bots fill in every field they find -->
+          <div class="hp" aria-hidden="true">
+            <label for="hp-idea">Website</label>
+            <input id="hp-idea" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <!-- Cloudflare's "Verify you are human" check appears here, if switched on -->
+          <div class="turnstile" id="ts-idea"></div>
+          <div class="suggest-actions">
+            <span class="muted small">We'll only use your email to let you know how your idea is going.</span>
+            <button class="btn btn-primary" type="submit" id="submit-btn">Post Idea</button>
+          </div>
+          <p class="error hidden" id="suggest-error" role="alert"></p>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== Sort + filters ===== -->
+    <div class="list-head"><h2>{{listHeading}}</h2></div>
+    <div class="toolbar">
+      <div class="tabs" role="group" aria-label="Sort ideas">
+        <button type="button" data-sort="top" aria-pressed="true">Most Votes</button>
+        <button type="button" data-sort="new" aria-pressed="false">Newest</button>
+      </div>
+      <select id="filter-status" aria-label="Filter by status"><option value="">All statuses</option></select>
+      <select id="filter-category" aria-label="Filter by category"><option value="">All categories</option></select>
+      <input type="search" id="search" placeholder="Search ideas" aria-label="Search ideas">
+    </div>
+
+    <!-- ===== The list of ideas (filled in by app.js) ===== -->
+    <ul class="ideas" id="ideas" aria-live="polite"></ul>
+  </main>
+
+  <!-- ===== Pop-up: one idea with its comments ===== -->
+  <dialog id="detail-dialog" aria-labelledby="detail-title">
+    <div class="dialog-inner" id="detail-content"></div>
+  </dialog>
+
+  <!-- ===== Pop-up: shown after posting an idea ===== -->
+  <dialog id="result-dialog" aria-labelledby="result-title">
+    <div class="dialog-inner" id="result-content"></div>
+  </dialog>
+
+  <!-- ===== Pop-up: ask for name + email before voting/commenting ===== -->
+  <dialog id="who-dialog" aria-labelledby="who-title">
+    <form class="dialog-inner" id="who-form" method="dialog" novalidate>
+      <div class="dialog-head">
+        <h2 id="who-title">Who's Voting?</h2>
+        <button class="close" type="button" data-close aria-label="Close">×</button>
+      </div>
+      <p class="muted">So we can let you know when it's ready. You'll only need to do this once.</p>
+      <div class="field"><label for="who-name">Your name</label><input id="who-name" type="text" maxlength="60" autocomplete="name"></div>
+      <div class="field"><label for="who-email">Email</label><input id="who-email" type="email" maxlength="120" autocomplete="email"></div>
+      <p class="error hidden" id="who-error" role="alert"></p>
+      <button class="btn btn-primary" type="submit">Continue</button>
+    </form>
+  </dialog>
+
+  <!-- Your brand's wording for app.js (plain data, not a script) -->
+  <script type="application/json" id="brand-data">{{brandData}}</script>
+  <script src="app.js"></script>
+</body>
+</html>

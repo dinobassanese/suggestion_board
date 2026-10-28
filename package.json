@@ -1,0 +1,21 @@
+{
+  "name": "feature-board",
+  "version": "1.0.0",
+  "description": "Collect and prioritize customer feature suggestions",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "test": "node --test --test-reporter=spec \"tests/*.test.js\"",
+    "test:browser": "python3 tests/browser_test.py",
+    "check-brand": "node brand.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^4.22.3",
+    "nodemailer": "^10.0.16"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "private": true
+}

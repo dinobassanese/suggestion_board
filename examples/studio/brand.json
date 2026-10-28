@@ -1,0 +1,43 @@
+{
+  "name": "Northlight Studio",
+  "productName": "Product Feedback",
+  "website": "https://www.example.com",
+  "logo": "logo.svg",
+  "logoHeight": 30,
+  "colors": {
+    "primary": "#5b3fd0",
+    "action": "#2b2d7a",
+    "accent": "#0f9d8a",
+    "text": "#2a2a35"
+  },
+  "fonts": {
+    "body": "Inter",
+    "heading": "Space Grotesk",
+    "googleFonts": true,
+    "weights": [
+      400,
+      600,
+      700
+    ]
+  },
+  "text": {
+    "heroTitle": "Shape the Next {name} Release",
+    "introText": "Request a feature or vote on what you need most. We read every suggestion, and the ones with the most votes go to the top of our roadmap.",
+    "suggestPlaceholder": "I wish {name} could…",
+    "detailsPlaceholder": "What problem would this solve for you?",
+    "listHeading": "Community Requests",
+    "adminHeading": "Requests from Our Users",
+    "emptyList": "No requests yet. Start the conversation!",
+    "firstToSuggest": "You're the first to ask for this. Share it with your team; every vote moves it up the roadmap.",
+    "loginNote": "{name} staff only. Enter the admin password to continue."
+  },
+  "categories": [
+    "Editor",
+    "Collaboration",
+    "Integrations",
+    "Performance",
+    "Mobile app",
+    "Billing",
+    "Other"
+  ]
+}

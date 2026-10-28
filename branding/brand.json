@@ -1,0 +1,43 @@
+{
+  "name": "Your Company",
+  "productName": "Feature Requests",
+  "website": "",
+  "logo": "logo.svg",
+  "logoHeight": 32,
+  "colors": {
+    "primary": "#2a9d8f",
+    "action": "#e9c46a",
+    "accent": "#264653",
+    "text": "#444444"
+  },
+  "fonts": {
+    "body": "Open Sans",
+    "heading": "Open Sans",
+    "headingItalic": false,
+    "googleFonts": true,
+    "weights": [
+      400,
+      600,
+      700
+    ]
+  },
+  "text": {
+    "heroTitle": "Help Us Choose What to Build Next",
+    "introText": "Tell us what you woild like to see next, or vote for an idea that's already here.",
+    "suggestPlaceholder": "I'd like {name} to…",
+    "detailsPlaceholder": "How would this help you?",
+    "listHeading": "Ideas from Our Customers",
+    "adminHeading": "What Customers Are Asking For",
+    "emptyList": "No ideas yet. Be the first: tell us what would help.",
+    "firstToSuggest": "You're the first to suggest this. Share the board with others; every vote moves it up the list.",
+    "loginNote": "For the {name} team only. Enter the admin password to continue."
+  },
+  "categories": [
+    "Ease of use",
+    "Reporting",
+    "Integrations",
+    "Mobile",
+    "Billing & Payments",
+    "Other"
+  ]
+}

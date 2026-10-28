@@ -1,0 +1,170 @@
+<!doctype html>
+<!--
+  admin.html — the STAFF-ONLY dashboard.
+  Anyone can load this page, but it shows nothing until you enter the admin
+  password; the server refuses every admin request without it.
+  Placeholders written in double curly braces are filled in by the server from
+  branding/brand.json before the page is sent.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>{{title}}</title>
+  {{head}}
+</head>
+<body>
+
+  <!-- ===== Login screen ===== -->
+  <form class="login hidden" id="login-form" novalidate>
+    {{logo}}
+    <h1>Suggestions Dashboard</h1>
+    <p class="muted">{{loginNote}}</p>
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+    </div>
+    <p class="error hidden" id="login-error" role="alert"></p>
+    <button class="btn btn-primary" type="submit">Log In</button>
+  </form>
+
+  <!-- ===== Dashboard (hidden until logged in) ===== -->
+  <div id="dashboard" class="hidden">
+    <header class="topbar">
+      <div class="wrap-wide">
+        <span class="logo">
+          {{logo}}
+          <span class="product">Suggestions Dashboard</span>
+        </span>
+        <nav>
+          <a class="btn" href="/" target="_blank" rel="noopener">View Public Board</a>
+          <a class="btn" href="/api/admin/export/ideas.csv">Download CSV</a>
+          <button class="btn" type="button" id="logout">Log Out</button>
+        </nav>
+      </div>
+    </header>
+    <div class="admin-band"><div class="wrap-wide"><h1>{{adminHeading}}</h1></div></div>
+
+    <main class="wrap-wide">
+      <!-- Moderation: new posts waiting for approval -->
+      <section class="section" aria-labelledby="review-h">
+        <div class="section-head">
+          <div>
+            <h2 id="review-h">Waiting for Review</h2>
+            <p class="muted small" style="margin:4px 0 0">New posts stay hidden from the public board until you approve them. Posts containing web links are always held here.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="require-approval">
+            Review new posts before they're published
+          </label>
+        </div>
+        <div class="panel" id="review"></div>
+      </section>
+
+      <!-- Overview numbers -->
+      <section class="section" aria-labelledby="overview-h">
+        <div class="section-head"><h2 id="overview-h">Overview</h2></div>
+        <div class="stats" id="stats"></div>
+        <div class="panels">
+          <div class="panel"><h3>Ideas by Status</h3><ul class="bars" id="by-status"></ul></div>
+          <div class="panel"><h3>Votes by Category</h3><ul class="bars" id="by-category"></ul></div>
+        </div>
+      </section>
+
+      <!-- The priority list -->
+      <section class="section" aria-labelledby="list-h">
+        <div class="section-head">
+          <div>
+            <h2 id="list-h">All Suggestions</h2>
+            <p class="muted small" style="margin:4px 0 0">Ranked by votes. Change a status or category right in the table; click a title for voters, comments and merging.</p>
+          </div>
+          <div class="toolbar" style="margin:0">
+            <button class="btn btn-primary" type="button" id="add-open">Add a Request</button>
+            <select id="a-status" aria-label="Filter by status"><option value="">All statuses</option></select>
+            <input type="search" id="a-search" placeholder="Search" aria-label="Search suggestions">
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th><button type="button" data-sort="vote_count">Votes</button></th>
+                <th>Suggestion</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th><button type="button" data-sort="comment_count">Comments</button></th>
+                <th><button type="button" data-sort="created_at">Submitted</button></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Categories -->
+      <section class="section" aria-labelledby="cat-h" style="max-width:520px">
+        <div class="section-head"><h2 id="cat-h">Categories</h2></div>
+        <div class="panel">
+          <ul class="cat-list" id="cat-list"></ul>
+          <form class="inline-form" id="cat-form">
+            <input type="text" id="cat-name" maxlength="40" placeholder="New category name" aria-label="New category name">
+            <button class="btn btn-primary" type="submit">Add Category</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Daily summary email -->
+      <section class="section" aria-labelledby="digest-h" style="max-width:520px">
+        <div class="section-head"><h2 id="digest-h">Daily Summary Email</h2></div>
+        <div class="panel">
+          <p class="muted small" id="digest-status" style="margin-top:0"></p>
+          <button class="btn" type="button" id="digest-test">Send Test Summary</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===== Pop-up: add a request on a customer's behalf ===== -->
+  <dialog id="add-dialog" aria-labelledby="add-title">
+    <form class="dialog-inner" id="add-form" novalidate>
+      <div class="dialog-head">
+        <h2 id="add-title">Add a Request</h2>
+        <button class="close" type="button" data-close aria-label="Close">×</button>
+      </div>
+      <p class="muted small" style="margin-top:0">Log a request you heard about by phone, in a meeting or in a support ticket. It goes live right away and counts as 1 request. Only the title is required.</p>
+      <div class="field"><label for="add-title-input">Title</label>
+        <input id="add-title-input" type="text" maxlength="120" placeholder="What are they asking for?" required></div>
+      <div class="field"><label for="add-desc">Details (optional)</label>
+        <textarea id="add-desc" maxlength="2000"></textarea></div>
+      <div class="row-2">
+        <div class="field"><label for="add-cat">Category</label><select id="add-cat"></select></div>
+        <div class="field"><label for="add-status">Status</label><select id="add-status"></select></div>
+      </div>
+      <div class="row-2">
+        <div class="field"><label for="add-name">Requester name (optional)</label>
+          <input id="add-name" type="text" maxlength="60" autocomplete="off"></div>
+        <div class="field"><label for="add-email">Requester email (optional)</label>
+          <input id="add-email" type="email" maxlength="120" autocomplete="off"></div>
+      </div>
+      <div class="row-2">
+        <div class="field"><label for="add-date">Date submitted (optional)</label>
+          <input id="add-date" type="date" min="2000-01-01"></div>
+        <div class="field"><label for="add-extra">Extra votes already collected (optional)</label>
+          <input id="add-extra" type="number" step="1" min="0" max="100000" placeholder="0"></div>
+      </div>
+      <p class="muted small" style="margin-top:-8px">Moving a request over from another tool? Enter its original date and its votes so far (not counting the requester). Leave blank to use today and no extra votes.</p>
+      <p class="error hidden" id="add-error" role="alert"></p>
+      <button class="btn btn-primary" type="submit" id="add-submit">Add Request</button>
+    </form>
+  </dialog>
+
+  <!-- ===== Pop-up: manage one suggestion ===== -->
+  <dialog id="idea-dialog" class="wide" aria-labelledby="edit-title">
+    <div class="dialog-inner" id="idea-content"></div>
+  </dialog>
+
+  <script src="admin.js"></script>
+</body>
+</html>

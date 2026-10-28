@@ -1,0 +1,44 @@
+{
+  "name": "Test Brand",
+  "productName": "Feature Requests",
+  "website": "https://www.example.com",
+  "logo": "test-logo.svg",
+  "logoHeight": 28,
+  "colors": {
+    "primary": "#46b3d1",
+    "action": "#31708f",
+    "accent": "#29ae5f",
+    "text": "#555555"
+  },
+  "fonts": {
+    "body": "Open Sans",
+    "headingItalic": true,
+    "realItalic": true,
+    "googleFonts": true,
+    "weights": [
+      400,
+      600,
+      700
+    ]
+  },
+  "text": {
+    "heroTitle": "Help Us Build What Your Clinic Needs Next",
+    "introText": "Tell us what would make running your clinic easier, or vote for an idea that's already here. The most-requested ideas rise to the top, and that's how we decide what to build.",
+    "suggestPlaceholder": "I'd like {name} to…",
+    "detailsPlaceholder": "What would this help you or your clients do?",
+    "listHeading": "Ideas from Clinics Like Yours",
+    "adminHeading": "What Clinics Are Asking For",
+    "emptyList": "No ideas yet. Be the first: tell us what would help your clinic.",
+    "firstToSuggest": "You're the first to suggest this. Share the board with the practitioners at your clinic; every vote moves it up the list.",
+    "loginNote": "For the {name} team only. Enter the admin password to continue."
+  },
+  "categories": [
+    "Scheduling",
+    "Online Booking",
+    "Billing & Payments",
+    "Forms",
+    "Charting & Session Notes",
+    "Reminders & Notifications",
+    "Other"
+  ]
+}
